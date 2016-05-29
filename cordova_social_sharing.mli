@@ -30,7 +30,8 @@ class social_sharing : Ojs.t ->
                                 (string -> unit) ->
                                 unit
     method share_via_twitter  : string                              ->
-                                ?files:string list                  ->
+                                (* No files array, see official repo *)
+                                ?files:string                       ->
                                 ?url:string                         ->
                                 unit                                ->
                                 unit
@@ -43,14 +44,14 @@ class social_sharing : Ojs.t ->
                                   ())])                             ->
                                 unit                                ->
                                 unit
-    (*
-    method share_via_instagram :  string ->
-                                  string ->
-                                  ?succ_cb:((unit -> unit) [@js.default (fun () ->
-                                    ())]) ->
-                                  ?err_cb:((string -> unit) [@js.default (fun e ->
-                                    ())]) ->
-    *)
+    method share_via_instagram :string                              ->
+                                ?url:string                         ->
+                                ?succ_cb:((unit -> unit) [@js.default (fun () ->
+                                  ())])                             ->
+                                ?err_cb:((string -> unit) [@js.default (fun e ->
+                                  ())])                             ->
+                                unit                                ->
+                                unit
 
   end
 (* -------------------------------------------------------------------------- *)
