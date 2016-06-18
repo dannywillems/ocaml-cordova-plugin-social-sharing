@@ -12,51 +12,68 @@ val create_options :  ?message:string       ->
 (* -------------------------------------------------------------------------- *)
 
 (* -------------------------------------------------------------------------- *)
-class result : Ojs.t ->
-  object
-    inherit Ojs.obj
-    method completed : bool
-    method app : string
-  end
+type result = private Ojs.t
+
+val completed : result -> bool
+[@@js.get]
+
+val app : result -> string
+[@@js.get]
 (* -------------------------------------------------------------------------- *)
 
 (* -------------------------------------------------------------------------- *)
-class social_sharing : Ojs.t ->
-  object
-    inherit Ojs.obj
+val share_with_options :
+  options ->
+  (result -> unit) ->
+  (string -> unit) ->
+  unit
+[@@js.global "window.plugins.socialsharing.shareWithOptions"]
 
-    method share_with_options : options ->
-                                (result -> unit) ->
-                                (string -> unit) ->
-                                unit
-    method share_via_twitter  : string                              ->
-                                (* No files array, see official repo *)
-                                ?files:string                       ->
-                                ?url:string                         ->
-                                unit                                ->
-                                unit
-    method share_via_facebook : string                              ->
-                                ?files:string list                  ->
-                                ?url:string                         ->
-                                ?succ_cb:((unit -> unit) [@js.default (fun () ->
-                                  ())])                             ->
-                                ?err_cb:((string -> unit) [@js.default (fun e ->
-                                  ())])                             ->
-                                unit                                ->
-                                unit
-    method share_via_instagram :string                              ->
-                                ?url:string                         ->
-                                ?succ_cb:((unit -> unit) [@js.default (fun () ->
-                                  ())])                             ->
-                                ?err_cb:((string -> unit) [@js.default (fun e ->
-                                  ())])                             ->
-                                unit                                ->
-                                unit
+val share_via_twitter  :
+  string                              ->
+  (* No files array, see official repo *)
+  ?files:string                       ->
+  ?url:string                         ->
+  unit                                ->
+  unit
+[@@js.global "window.plugins.socialsharing.shareViaTwitter"]
 
-  end
-(* -------------------------------------------------------------------------- *)
+val share_via_facebook :
+  string                                                  ->
+  ?files:string list                                      ->
+  ?url:string                                             ->
+  ?succ_cb:((unit -> unit) [@js.default (fun () -> ())])  ->
+  ?err_cb:((string -> unit) [@js.default (fun e -> ())])  ->
+  unit                                                    ->
+  unit
+[@@js.global "window.plugins.socialsharing.shareViaFacebook"]
 
-(* -------------------------------------------------------------------------- *)
-val t : unit -> social_sharing
-[@@js.get "window.plugins.socialsharing"]
+val share_via_instagram :
+  string                                                  ->
+  ?url:string                                             ->
+  ?succ_cb:((unit -> unit) [@js.default (fun () -> ())])  ->
+  ?err_cb:((string -> unit) [@js.default (fun e -> ())])  ->
+  unit                                                    ->
+  unit
+[@@js.global "window.plugins.socialsharing.shareViaInstagram"]
+
+val share_via_whatsapp :
+  string                                                  ->
+  ?img:string                                             ->
+  ?url:string                                             ->
+  ?succ_cb:((unit -> unit) [@js.default (fun () -> ())])  ->
+  ?err_cb:((string -> unit) [@js.default (fun e -> ())])  ->
+  unit                                                    ->
+  unit
+[@@js.global "window.plugins.socialsharing.shareViaWhatsApp"]
+
+(* Only the second interface is implemented because other fail on majority *)
+val share_via_sms :
+  string                                                  ->
+  ?numbers:string                                         ->
+  ?succ_cb:((string -> unit) [@js.default (fun e -> ())]) ->
+  ?err_cb:((string -> unit) [@js.default (fun e -> ())])  ->
+  unit                                                    ->
+  unit
+[@@js.global "window.plugins.socialsharing.shareViaSms"]
 (* -------------------------------------------------------------------------- *)
