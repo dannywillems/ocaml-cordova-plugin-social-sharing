@@ -77,3 +77,23 @@ val share_via_sms :
   unit
 [@@js.global "window.plugins.socialsharing.shareViaSms"]
 (* -------------------------------------------------------------------------- *)
+
+(*TODO*)
+val save_to_photo_album :
+  string list                                             ->
+  ?onSuccess:(unit -> unit)                               ->
+  ?onError:(unit -> unit)                                 ->
+  unit                                                    ->
+  unit
+[@@js.global "window.plugins.socialsharing.saveToPhotoAlbum"]
+
+val can_share_via :
+  via:string                                              ->
+  msg:string                                              ->
+  ?subject:string                                         ->
+  ?fileOrArray:string list                                ->
+  ?url:string                                             ->
+  successCallback:(unit -> unit)                          ->
+  errorCallback:(unit -> unit)                            ->
+  bool
+[@@js.global "window.plugins.socialsharing.canShareVia"]
