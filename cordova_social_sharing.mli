@@ -106,5 +106,6 @@ val can_share_via :
   ?url:string                                             ->
   successCallback:(unit -> unit)                          ->
   errorCallback:(unit -> unit)                            ->
+  unit                                                    ->
   unit
 [@@js.global "window.plugins.socialsharing.canShareVia"]
