@@ -79,6 +79,17 @@ val share_via_sms :
 (* -------------------------------------------------------------------------- *)
 
 (*TODO*)
+[@@@js.stop]
+
+val available : unit -> bool
+
+[@@@js.start]
+
+[@@@js.implem
+ let available () =
+   Js_of_ocaml.Js.Optdef.test Js_of_ocaml.Js.Unsafe.global##.plugins##.socialsharing
+]
+
 val save_to_photo_album :
   string list                                             ->
   ?onSuccess:(unit -> unit)                               ->
