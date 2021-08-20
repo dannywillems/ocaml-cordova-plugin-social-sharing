@@ -18,5 +18,7 @@ remove: [make "remove"]
 
 depends: [
   "gen_js_api"
+  "js_of_ocaml"
+  "js_of_ocaml-ppx"
 ]
 available: [ ocaml-version >= "4.03.0" ]

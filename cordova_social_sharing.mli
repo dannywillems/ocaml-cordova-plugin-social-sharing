@@ -77,3 +77,35 @@ val share_via_sms :
   unit
 [@@js.global "window.plugins.socialsharing.shareViaSms"]
 (* -------------------------------------------------------------------------- *)
+
+(*TODO*)
+[@@@js.stop]
+
+val available : unit -> bool
+
+[@@@js.start]
+
+[@@@js.implem
+ let available () =
+   Js_of_ocaml.Js.Optdef.test Js_of_ocaml.Js.Unsafe.global##.plugins##.socialsharing
+]
+
+val save_to_photo_album :
+  string list                                             ->
+  ?onSuccess:(unit -> unit)                               ->
+  ?onError:(unit -> unit)                                 ->
+  unit                                                    ->
+  unit
+[@@js.global "window.plugins.socialsharing.saveToPhotoAlbum"]
+
+val can_share_via :
+  via:string                                              ->
+  msg:string                                              ->
+  ?subject:string                                         ->
+  ?fileOrArray:string list                                ->
+  ?url:string                                             ->
+  successCallback:(unit -> unit)                          ->
+  errorCallback:(unit -> unit)                            ->
+  unit                                                    ->
+  unit
+[@@js.global "window.plugins.socialsharing.canShareVia"]
